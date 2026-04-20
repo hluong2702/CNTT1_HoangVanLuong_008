@@ -33,7 +33,10 @@ public class AnimalService {
 
     public boolean removeAnimal(Long id) {
         Animal animal = animalRepository.getAnimalById(id);
-        return animalRepository.remove(animal);
+        if (animal != null) {
+            return animalRepository.remove(animal);
+        }
+        return false;
     }
 
     public boolean updateAnimal(Animal animal, String thumbnail) {

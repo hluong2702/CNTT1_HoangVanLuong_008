@@ -2,7 +2,6 @@ package com.practice.hackathon.controller;
 
 import com.practice.hackathon.model.Animal;
 import com.practice.hackathon.service.AnimalService;
-import jakarta.servlet.ServletContext;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +9,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/")
 public class AnimalController {
     private final AnimalService animalService;
 
-    public AnimalController(AnimalService animalService, ServletContext servletContext) {
+    public AnimalController(AnimalService animalService) {
         this.animalService = animalService;
     }
 
@@ -44,12 +41,12 @@ public class AnimalController {
     public String add(
             @Valid @ModelAttribute("animal") Animal animal,
             BindingResult bindingResult,
-            @RequestParam(value = "id", required = false) Long id,
             @RequestParam("file") MultipartFile file
     ) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
+        animalService.addAnimal(animal, file.getOriginalFilename());
         return "redirect:/list";
     }
 
