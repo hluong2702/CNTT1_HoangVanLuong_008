@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <form th:action="@{/save}" th:object="${animal}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" th:value="${animal.id}">
+            <div class="form-group">
+                <label for="animalName">ID</label>
+                <input type="text" name="animalName" id="animalName" class="form-control" th:field="*{}">
+                <p class="text-danger" th:if="${#fields.hasErrors('animalName')}" th:errors="*{}"></p>
+
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control" th:field="*{name}">
+                <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+            <div class="form-group">
+                <label for="specics">Species</label>
+                <input type="number" name="specso" id="specics" class="form-control" th:field="*{age}">
+                <p class="text-danger" th:if="${#fields.hasErrors('specics')}" th:errors="*{age}"></p>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" name="duration" id="age" class="form-control" th:field="*{age}">
+                <p class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></p>
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+            <a th:href="@{/list}" class="btn btn-secondary">Hủy</a>
+        </form>
+
+    </div>
+
+</html>

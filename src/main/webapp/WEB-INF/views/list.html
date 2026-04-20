@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+    <div class="container">
+        <div class="d-flex justify-content-between mb-3">
+            <form th:action="@{/list}" method="get">
+                <label class="d-flex">
+                    <input type="text" name="keyword" class="form-control" placeholder="Search by name...">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </label>
+            </form>
+
+            <a th:href="@{/add}" class="btn btn-primary">Add</a>
+        </div>
+        <div th:if="${animals.isEmpty()}" class="alert alert-warning">
+            Chưa có con vật nào !
+        </div>
+        <table th:if="${!animals.isEmpty()}" class="table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Name</th>
+                    <th>Species</th>
+                    <th>Age</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody th:each="animals : ${animals}">
+                <tr>
+                    <td th:text="${animals.id}"></td>
+                    <td th:text="${animals.animalName}"></td>
+                    <td th:text="${animals.species}"></td>
+                    <td th:text="${animals.age}"></td>
+                    <td th:text="${animals.image}"></td>
+                    <td class="d-flex justify-content-between">
+                        <a th:href="@{'/edit/' + ${animals.id}}">Sửa</a>
+                        <a th:href="@{'/delete/' + ${animals.id}}"
+                           onclick="return confirm('Bạn có chắc muốn xóa?')">Xoá</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
